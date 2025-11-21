@@ -1,0 +1,51 @@
+from django.conf import settings
+from django.db import models
+from django.utils import timezone
+
+
+# A custom manager for the published Post model.
+class PublishedManager(models.Manager):
+    # Overwriting the base query function on the manager
+    def get_queryset(self):
+        return super().get_queryset().filter(status=Post.Status.PUBLISHED)
+
+
+class Post(models.Model):
+    # Equivalent to a enum class
+    class Status(models.TextChoices):
+        DRAFT = 'DF', 'Draft'
+        PUBLISHED = 'PB', 'Published'
+
+    title = models.CharField(max_length=250)
+    # Slug is a alphanumeric with hyphen text. Useful for SEO
+    slug = models.SlugField(max_length=250)
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='blog_posts'
+    )
+    body = models.TextField()
+    publish = models.DateTimeField(default=timezone.now)
+    # Receive the data auto when created
+    created = models.DateTimeField(auto_now_add=True)
+    # Receive the data auto when updated
+    updated = models.DateTimeField(auto_now=True)
+    status = models.CharField(
+        max_length=2,
+        choices=Status,
+        default=Status.DRAFT
+    )
+    objects = models.Manager()
+    published = PublishedManager()
+
+    # A subclass carrying metadata about it's parent class
+    class Meta:
+        # Results will be returned in reverse cronological publish order by default
+        ordering = ['-publish']
+        indexes = [
+            models.Index(fields=['publish'])
+        ]
+
+    def __str__(self):
+        return f"{self.title} by {self.author.username} in {self.publish}"
+        return f"{self.title} by {self.author.username} in {self.publish}"
