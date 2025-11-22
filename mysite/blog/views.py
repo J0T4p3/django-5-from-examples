@@ -1,7 +1,19 @@
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, render
+from django.views.generic import ListView
 
 from .models import Post
+
+
+class PostListView(ListView):
+
+    # used when specific query is needed.
+    queryset = Post.published.all()
+    # To return all the objects, like Post.objects.all(), simple do:
+    # model = Post
+    context_object_name = 'posts'
+    paginate_by = 3
+    template_name = 'blog/post/list.html'
 
 
 def post_list(request):
