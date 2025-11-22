@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Post
+from .models import Comment, Post
 
 
 @admin.register(Post)
@@ -22,3 +22,10 @@ class PostAdmin(admin.ModelAdmin):
 
     # Little counter on the filters indicating the total obj count
     show_facets = admin.ShowFacets.ALWAYS
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['name', 'email', 'post', 'created', 'active']
+    list_filters = ['active', 'created', 'updated']
+    search_fields = ['name', 'email', 'body']
