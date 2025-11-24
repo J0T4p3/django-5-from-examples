@@ -12,5 +12,6 @@ class EmailPostForm(forms.Form):
 
 class CommentForm(forms.ModelForm):
     class Meta:
+        # Wich class willbe used and what fields will be displayed
         model = Comment
         fields = ['name', 'email', 'body']

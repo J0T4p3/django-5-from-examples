@@ -78,4 +78,4 @@ class Comment(models.Model):
         ]
 
     def __repr__(self):
-        return f'Comentário por {self.name} em {self.post}'
+        return f'Comentário por {self.name}, em {self.post}'
