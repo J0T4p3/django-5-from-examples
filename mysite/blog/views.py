@@ -57,12 +57,11 @@ def post_share(request, post_id):
             # Full url of the send mail server
             post_url = request.build_absolute_uri(post.get_absolute_url())
             subject = (
-                f'{cd['name']}'
-                f'recomenda uma leitura para você: {post.title}'
+                f'{cd['name']} recomenda uma leitura para você: {post.title}'
             )
             message = (
                 f"Leia {post.title} em {post_url}\n\n"
-                f"{cd['name']}\ comenta: {cd['comments']}"
+                f"{cd['name']} comenta: {cd['comments']}"
             )
 
             send_mail(subject=subject, message=message,
