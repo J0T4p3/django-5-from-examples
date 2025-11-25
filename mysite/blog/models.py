@@ -1,8 +1,8 @@
-
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from taggit.managers import TaggableManager
 
 
 # A custom manager for the published Post model.
@@ -39,6 +39,7 @@ class Post(models.Model):
     )
     objects = models.Manager()
     published = PublishedManager()
+    tags = TaggableManager()
 
     class Meta:
         # Results will be returned in reverse cronological publish order by default

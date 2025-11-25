@@ -1,7 +1,7 @@
+import os
 from pathlib import Path
 
 from decouple import config
-import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-)9-*%@o=h*#7(v@+7fbc3_q78s=3y0^9x8hhnq4(gjm0(l=8)r"
@@ -10,7 +10,7 @@ DEBUG = True
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "::1", "0.0.0.0"]
 
 # Specific config for usage with codespaces
-if config("CODESPACES"):
+if config("CODESPACES", ""):
     ALLOWED_HOSTS.append(config("CODESPACE_NAME") + "-8000.app.github.dev")
     CSRF_TRUSTED_ORIGINS = [
         "http://localhost:8000",
@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "taggit",
     "blog.apps.BlogConfig",
 ]
 
