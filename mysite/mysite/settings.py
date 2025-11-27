@@ -18,6 +18,7 @@ if config("CODESPACES", ""):
         f"https://{config('CODESPACE_NAME')}-8000.app.github.dev",
     ]
 
+SITE_ID = 1
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -26,6 +27,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
     "taggit",
     "blog.apps.BlogConfig",
 ]
