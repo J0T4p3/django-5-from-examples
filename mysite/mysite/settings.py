@@ -7,16 +7,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-)9-*%@o=h*#7(v@+7fbc3_q78s=3y0^9x8hhnq4(gjm0(l=8)r"
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "::1", "0.0.0.0"]
-
-# Specific config for usage with codespaces
-if config("CODESPACES", ""):
-    ALLOWED_HOSTS.append(config("CODESPACE_NAME") + "-8000.app.github.dev")
-    CSRF_TRUSTED_ORIGINS = [
-        "http://localhost:8000",
-        "https://localhost:8000",
-        f"https://{config('CODESPACE_NAME')}-8000.app.github.dev",
-    ]
+ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1', 'http://0.0.0.0']
 
 SITE_ID = 1
 
@@ -65,11 +57,12 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('POSTGRES_NAME'),
+        'USER': config('POSTGRES_USER'),
+        'PASSWORD': config('POSTGRES_PASSWORD'),
+        "HOST": "db",
+        "PORT": "5432",
     }
 }
 
