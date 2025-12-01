@@ -3,9 +3,9 @@ services:
     container_name: postgres
     image: postgres:latest
     environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PW}
-      - POSTGRES_DB=${POSTGRES_DB} #optional (specify default database instead of $POSTGRES_DB)
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=db_test
     ports:
       - "5432:5432"
     restart: always
@@ -14,8 +14,12 @@ services:
     container_name: pgadmin
     image: dpage/pgadmin4:latest
     environment:
-      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_MAIL}
-      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PW}
+      - PGADMIN_DEFAULT_EMAIL=teste@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=1234
+      - PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION=False
+      - PGADMIN_CONFIG_WTF_CSRF_HEADERS=["Referer", "Origin"]
+      - PGADMIN_CONFIG_WTF_CSRF_ENABLED=False
+
     ports:
       - "5050:80"
     restart: always
